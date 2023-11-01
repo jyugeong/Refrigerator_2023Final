@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import com.example.refrigerator_2023final.R;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,10 +20,6 @@ import com.example.refrigerator_2023final.R;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
-    private MypageFragment fragmentMypage = new MypageFragment();
-    private HomeFragment fragmentHome = new HomeFragment();
-    private SearchFragment fragmentSearch = new SearchFragment();
-    private FoodlistFragment fragmentFoodlist = new FoodlistFragment();
     private TextView userEmailTextView;
 
     @Override
@@ -30,11 +27,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_layout, fragmentHome).commitAllowingStateLoss();
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+
 
         // Firebase Authentication에서 현재 사용자 가져오기
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -60,19 +55,17 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-            switch (menuItem.getItemId()) {
-                case R.id.tab_mypage:
-                    transaction.replace(R.id.main_layout, fragmentMypage);
-                    break;
-                case R.id.tab_home:
-                    transaction.replace(R.id.main_layout, fragmentHome);
-                    break;
-                case R.id.tab_search:
-                    transaction.replace(R.id.main_layout, fragmentSearch);
-                    break;
-                case R.id.tab_list:
-                    transaction.replace(R.id.main_layout, fragmentFoodlist);
-                    break;
+            if (menuItem.getItemId() == R.id.tab_mypage) {
+                Intent intent = new Intent(MainActivity.this, MyPageJava.class);
+                startActivity(intent);
+            } else if (menuItem.getItemId() == R.id.tab_home) {
+
+            } else if (menuItem.getItemId() == R.id.tab_search) {
+                Intent intent = new Intent(MainActivity.this, SearchFragment.class);
+                startActivity(intent);
+            } else if (menuItem.getItemId() == R.id.tab_list) {
+                Intent intent = new Intent(MainActivity.this, FoodListPage.class);
+                startActivity(intent);
             }
 
             transaction.commitAllowingStateLoss(); // 여기서 commit 호출
