@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, FoodListPage.class);
                 startActivity(intent);
             }
-asdfj
+//asdfj
             transaction.commitAllowingStateLoss(); // 여기서 commit 호출
             return true;
         }
